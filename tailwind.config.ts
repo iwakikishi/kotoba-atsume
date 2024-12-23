@@ -13,7 +13,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['var(--font-noto-sans-jp)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'var(--font-noto-sans-jp)', 'sans-serif'],
         mono: ['monospace'],
       },
     },
