@@ -88,6 +88,8 @@ export default function Record() {
             <div className='space-x-4'>
               {!isRecording ? (
                 <Button
+                  variant='outline'
+                  className='text-lg px-4 py-2'
                   onClick={() => {
                     setIsRecording(true);
                     startRecording();
@@ -97,6 +99,7 @@ export default function Record() {
                 </Button>
               ) : (
                 <Button
+                  className='text-lg px-4 py-2'
                   onClick={() => {
                     setIsRecording(false);
                     stopRecording();
@@ -110,6 +113,8 @@ export default function Record() {
                 <>
                   <audio src={mediaBlobUrl} controls className='my-4' />
                   <Button
+                    variant='default'
+                    className='text-lg px-4 py-2'
                     onClick={async () => {
                       if (!mediaBlobUrl) return;
 

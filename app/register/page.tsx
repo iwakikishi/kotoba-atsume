@@ -50,7 +50,7 @@ export default function Register() {
             <select
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              className='mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 bg-white'
+              className='h-12 mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 bg-white'
               required>
               <option value=''>選択してください</option>
               {Array.from({ length: 5 }, (_, i) => i + 4).map((num) => (
@@ -67,16 +67,16 @@ export default function Register() {
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className='mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 bg-white'
+              className='h-12 mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 bg-white'
               required>
               <option value=''>選択してください</option>
-              <option value='male'>男性</option>
-              <option value='female'>女性</option>
+              <option value='male'>男の子</option>
+              <option value='female'>女の子</option>
               <option value='other'>その他</option>
             </select>
           </label>
         </div>
-        <Button type='submit' disabled={isLoading} className='w-full'>
+        <Button type='submit' disabled={isLoading} className='w-full text-lg'>
           {isLoading ? '登録中...' : '次へ'}
         </Button>
       </form>
