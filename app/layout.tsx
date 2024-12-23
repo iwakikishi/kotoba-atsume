@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
-import { GeistSans, GeistMono } from 'geist/font';
 import { Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
-
-const geistSans = GeistSans;
-
-const geistMono = GeistMono;
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
