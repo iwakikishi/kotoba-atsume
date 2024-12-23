@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { GeistSans, GeistMono } from 'geist/font/dist/tailwind';
 
 export default {
   content: [
@@ -11,6 +12,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      fontFamily: {
+        sans: ['var(--font-noto-sans-jp)', GeistSans],
+        mono: [GeistMono],
       },
     },
   },
