@@ -32,8 +32,8 @@ export default function SessionDetail() {
         // ファイル名からひらがなを抽出し、URLを取得
         const recordingsData = await Promise.all(
           files.map(async (file) => {
-            const romajiChar = file.name.split('_')[0];
-            const hiragana = Object.entries(HIRAGANA_MAP).find(([_, romaji]) => romaji === romajiChar)?.[0] || '';
+            const romajiMatch = file.name.split('_')[0];
+            const hiragana = Object.entries(HIRAGANA_MAP).find(([key, romaji]) => romaji === romajiMatch)?.[0] || '';
 
             const {
               data: { publicUrl },

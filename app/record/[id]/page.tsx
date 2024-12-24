@@ -16,7 +16,6 @@ export default function Record() {
   const [uploadStatus, setUploadStatus] = useState('');
   const [countdown, setCountdown] = useState<number | null>(null);
   const [hasRecorded, setHasRecorded] = useState(false);
-  const [recordedHiragana, setRecordedHiragana] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -47,13 +46,11 @@ export default function Record() {
         // 録音済みのファイルからローマ字を抽出し、対応するひらがなを見つける
         const recorded = files?.reduce((acc: string[], file) => {
           const romajiMatch = file.name.split('_')[0];
-          const hiragana = Object.entries(HIRAGANA_MAP).find(([_, romaji]) => romaji === romajiMatch)?.[0];
+          const hiragana = Object.entries(HIRAGANA_MAP).find(([key, romaji]) => romaji === romajiMatch)?.[0];
           if (hiragana) acc.push(hiragana);
           return acc;
         }, []);
 
-        setRecordedHiragana(recorded || []);
-        // 録音済みの数を初期インデックスとして設定
         setCurrentIndex(recorded?.length || 0);
       } finally {
         setIsLoading(false);
