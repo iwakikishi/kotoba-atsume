@@ -86,18 +86,16 @@ export default function SessionDetail() {
   }
 
   return (
-    <>
+    <div className='min-h-screen bg-gradient-to-b from-blue-50 to-pink-50'>
       <Header />
-      <div className='min-h-screen p-4 bg-gradient-to-b from-blue-50 to-pink-50'>
-        <div className='max-w-md mx-auto'>
+      <main className='pt-20 p-4'>
+        <div className='max-w-4xl mx-auto'>
           <div className='flex flex-col items-center mb-8'>
-            <h1 className='text-3xl font-bold text-center mb-4 bg-white/90 text-blue-600 rounded-full px-6 py-3 shadow-lg'>
+            <h1 className='text-3xl font-bold text-center mb-4 text-blue-600'>
               <span className='text-4xl mr-2'>🎵</span>
               とった おとの きろく
             </h1>
-            <Button
-              asChild
-              className='text-xl py-4 px-8 rounded-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 shadow-lg'>
+            <Button asChild className='text-xl py-4 px-8 rounded-full bg-pink-400 hover:bg-pink-500 text-white shadow-lg'>
               <Link href={`/record/${params.id}`}>
                 <span className='text-2xl mr-2'>🎤</span>
                 つづきを とろう！
@@ -105,24 +103,24 @@ export default function SessionDetail() {
             </Button>
           </div>
 
-          <div className='grid grid-cols-2 gap-3'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
             {recordings.map((recording) => (
               <div
                 key={recording.url}
-                className='border-4 border-blue-200 rounded-2xl p-4 bg-white shadow-lg transform hover:scale-105 transition-transform'>
-                <div className='text-5xl font-bold mb-3 text-center text-blue-600'>{recording.hiragana}</div>
+                className='relative aspect-square flex flex-col items-center justify-center bg-white rounded-3xl p-4 shadow-lg'>
+                <div className='text-6xl mb-4 text-gray-300'>{recording.hiragana}</div>
                 <Button
                   variant='outline'
                   onClick={() => handlePlay(recording.url)}
-                  className='w-full text-xl py-4 rounded-full border-2 border-pink-400 hover:bg-pink-50'>
-                  <span className='text-2xl mr-2'>🔊</span>
+                  className='w-full text-lg py-2 px-4 rounded-full bg-black text-white hover:opacity-80 flex items-center justify-center gap-2'>
+                  <span className='text-xl'>🔊</span>
                   きく
                 </Button>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
