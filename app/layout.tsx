@@ -1,34 +1,25 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_JP } from 'next/font/google';
-import { Inter } from 'next/font/google';
+import { M_PLUS_Rounded_1c } from 'next/font/google';
 import './globals.css';
 
-const notoSansJP = Noto_Sans_JP({
+// M PLUS Rounded 1cフォントの設定（メイリオに似た丸みのあるフォント）
+const mplus = M_PLUS_Rounded_1c({
+  weight: ['400', '700'],
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-sans-jp',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
+  display: 'swap',
+  preload: false,
+  variable: '--font-mplus',
 });
 
 export const metadata: Metadata = {
-  title: 'こどもの音声収集アプリ',
-  description: '子供の発する単音データを収集するサービス',
+  title: 'こどもの おはなし きろく',
+  description: 'こどもたちの おはなしを きろくする アプリです',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ja' suppressHydrationWarning>
-      <body className={`${notoSansJP.variable} ${inter.variable} font-sans antialiased`} suppressHydrationWarning>
-        {children}
-      </body>
+    <html lang='ja' className={`${mplus.variable}`}>
+      <body className='font-mplus'>{children}</body>
     </html>
   );
 }

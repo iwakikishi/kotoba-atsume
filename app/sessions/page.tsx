@@ -4,14 +4,19 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import { Button } from '@/app/components/ui/button';
 import Link from 'next/link';
+import { Header } from '@/app/components/header';
 
 export default function Sessions() {
-  const [sessions, setSessions] = useState<Array<{ id: string; count: number }>>([]);
+  const [sessions, setSessions] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadSessions() {
       try {
+        if (!supabase) {
+          throw new Error('Supabase client not initialized');
+        }
+
         const { data: folders, error } = await supabase.storage.from('recordings').list('audio');
 
         if (error) {
@@ -19,19 +24,7 @@ export default function Sessions() {
           return;
         }
 
-        // 各フォルダの録音数を取得
-        const sessionsWithCount = await Promise.all(
-          folders.map(async (folder) => {
-            const { data: files } = await supabase.storage.from('recordings').list(`audio/${folder.name}`);
-
-            return {
-              id: folder.name,
-              count: files?.length || 0,
-            };
-          })
-        );
-
-        setSessions(sessionsWithCount);
+        setSessions(folders.map((folder) => folder.name));
       } finally {
         setIsLoading(false);
       }
@@ -41,36 +34,39 @@ export default function Sessions() {
   }, []);
 
   if (isLoading) {
-    return <div className='min-h-screen flex items-center justify-center'>読み込み中...</div>;
+    return (
+      <>
+        <Header />
+        <div className='min-h-screen flex items-center justify-center'>読み込み中...</div>
+      </>
+    );
   }
 
   return (
-    <div className='min-h-screen p-8'>
-      <h1 className='text-3xl font-bold mb-8'>録音セッション一覧</h1>
-      {sessions.length === 0 ? (
-        <div className='text-center'>
-          <p className='mb-4'>録音セッションがありません</p>
-          <Button asChild>
-            <Link href='/register'>新規開始</Link>
-          </Button>
+    <>
+      <Header />
+      <div className='min-h-screen p-4 bg-gradient-to-b from-blue-50 to-pink-50'>
+        <div className='max-w-md mx-auto'>
+          <h1 className='text-3xl font-bold text-center mb-8 bg-white/90 text-blue-600 rounded-full px-6 py-3 shadow-lg'>
+            <span className='text-4xl mr-2'>📝</span>
+            きろくの いちらん
+          </h1>
+
+          <div className='space-y-4'>
+            {sessions.map((sessionId) => (
+              <Button
+                key={sessionId}
+                asChild
+                className='w-full text-xl py-6 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 shadow-lg transform hover:scale-105 transition-transform'>
+                <Link href={`/sessions/${sessionId}`}>
+                  <span className='text-2xl mr-2'>🎵</span>
+                  きろく {sessionId}
+                </Link>
+              </Button>
+            ))}
+          </div>
         </div>
-      ) : (
-        <div className='space-y-4'>
-          {sessions.map((session) => (
-            <div key={session.id} className='border p-4 rounded-lg'>
-              <div className='flex justify-between items-center'>
-                <div>
-                  <div>セッションID: {session.id}</div>
-                  <div className='text-sm text-gray-600'>録音済み: {session.count}文字</div>
-                </div>
-                <Button asChild>
-                  <Link href={`/record/${session.id}`}>続きから再開</Link>
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

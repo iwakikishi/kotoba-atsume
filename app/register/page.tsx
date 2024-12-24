@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/app/components/ui/button';
 import { supabase } from '@/app/lib/supabase';
@@ -10,12 +10,46 @@ export default function Register() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [micPermissionGranted, setMicPermissionGranted] = useState(false);
+
+  // マイクの権限をチェック
+  useEffect(() => {
+    const checkMicPermission = async () => {
+      const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+      setMicPermissionGranted(permissionStatus.state === 'granted');
+    };
+
+    checkMicPermission();
+  }, []);
+
+  const requestMicPermission = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((track) => track.stop()); // ストリームを停止
+      setMicPermissionGranted(true);
+      localStorage.setItem('micPermissionRequested', 'true');
+      return true;
+    } catch (error) {
+      console.error('マイクの許可が得られませんでした:', error);
+      return false;
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
+      // マイクの許可を取得していない場合は取得を試みる
+      if (!micPermissionGranted && !localStorage.getItem('micPermissionRequested')) {
+        const granted = await requestMicPermission();
+        if (!granted) {
+          alert('マイクを使うために許可が必要です。設定から許可してください。');
+          setIsLoading(false);
+          return;
+        }
+      }
+
       if (!supabase) {
         throw new Error('Supabase client not initialized');
       }
@@ -46,7 +80,7 @@ export default function Register() {
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-blue-50 to-pink-50'>
-      <h1 className='text-3xl font-bold mb-8 text-blue-600'>はじめまして！</h1>
+      <h1 className='text-4xl font-bold mb-6 text-blue-600'>はじめまして！</h1>
       <form onSubmit={handleSubmit} className='w-full max-w-md space-y-6 bg-white/90 p-6 rounded-3xl shadow-lg border-4 border-blue-200'>
         <div>
           <label className='block text-xl font-medium mb-2 text-blue-600'>

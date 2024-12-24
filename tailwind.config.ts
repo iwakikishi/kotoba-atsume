@@ -13,8 +13,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'var(--font-noto-sans-jp)', 'sans-serif'],
-        mono: ['monospace'],
+        mplus: ['var(--font-mplus)', 'M PLUS Rounded 1c', 'sans-serif'],
       },
     },
   },
