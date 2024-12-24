@@ -33,7 +33,8 @@ export default function SessionDetail() {
         const recordingsData = await Promise.all(
           files.map(async (file) => {
             const romajiMatch = file.name.split('_')[0];
-            const hiragana = Object.entries(HIRAGANA_MAP).find(([key, romaji]) => romaji === romajiMatch)?.[0] || '';
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const hiragana = Object.entries(HIRAGANA_MAP).find(([_, romaji]) => romaji === romajiMatch)?.[0] || '';
 
             const {
               data: { publicUrl },

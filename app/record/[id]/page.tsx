@@ -46,7 +46,8 @@ export default function Record() {
         // 録音済みのファイルからローマ字を抽出し、対応するひらがなを見つける
         const recorded = files?.reduce((acc: string[], file) => {
           const romajiMatch = file.name.split('_')[0];
-          const hiragana = Object.entries(HIRAGANA_MAP).find(([key, romaji]) => romaji === romajiMatch)?.[0];
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const hiragana = Object.entries(HIRAGANA_MAP).find(([_, romaji]) => romaji === romajiMatch)?.[0];
           if (hiragana) acc.push(hiragana);
           return acc;
         }, []);
@@ -177,7 +178,6 @@ export default function Record() {
                         console.error('Upload error details:', {
                           error: result.error,
                           message: result.error.message,
-                          statusCode: result.error.statusCode,
                           path: filePath,
                         });
                         throw new Error(`アップロードエラー: ${result.error.message || 'ストレージへの接続に失敗しました'}`);
