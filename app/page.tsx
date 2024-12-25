@@ -8,8 +8,12 @@ export default function Home() {
       <Header />
       <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-blue-50 to-pink-50'>
         <h1 className='text-4xl font-bold mb-6 text-blue-600 text-center'>
-          <span className='text-5xl mr-2'>🎤</span>
-          おはなしを きかせてね！
+          🎤
+          <br />
+          <br />
+          おはなしを
+          <br />
+          きかせてね！
         </h1>
 
         <div className='space-y-4 text-center bg-white/90 p-6 rounded-3xl shadow-lg border-4 border-blue-200 max-w-md w-full'>

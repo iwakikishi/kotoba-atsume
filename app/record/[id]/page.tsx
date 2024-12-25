@@ -124,7 +124,7 @@ export default function Record() {
           <Header />
           <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-blue-50 to-pink-50'>
             <div className='bg-white/90 rounded-3xl p-8 shadow-lg border-4 border-blue-200 mb-6'>
-              <div className='text-7xl sm:text-8xl font-bold text-blue-600 animate-bounce'>{HIRAGANA[currentIndex]}</div>
+              <div className='text-8xl sm:text-8xl font-darumadrop text-blue-600 animate-bounce'>{HIRAGANA[currentIndex]}</div>
             </div>
 
             {countdown !== null && (

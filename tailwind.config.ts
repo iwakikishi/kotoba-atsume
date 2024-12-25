@@ -14,6 +14,8 @@ export default {
       },
       fontFamily: {
         mplus: ['var(--font-mplus)', 'M PLUS Rounded 1c', 'sans-serif'],
+        yomogi: ['var(--font-yomogi)'],
+        darumadrop: ['var(--font-darumadrop)'],
       },
     },
   },

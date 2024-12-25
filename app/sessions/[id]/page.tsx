@@ -108,7 +108,7 @@ export default function SessionDetail() {
               <div
                 key={recording.url}
                 className='relative aspect-square flex flex-col items-center justify-center bg-white rounded-3xl p-4 shadow-lg'>
-                <div className='text-6xl mb-4 text-gray-300'>{recording.hiragana}</div>
+                <div className='text-6xl mb-4 text-gray-300 font-darumadrop'>{recording.hiragana}</div>
                 <Button
                   variant='outline'
                   onClick={() => handlePlay(recording.url)}
